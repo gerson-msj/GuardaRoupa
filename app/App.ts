@@ -1,4 +1,4 @@
-import sqlite, { SQLInputValue, SQLOutputValue } from "node:sqlite";
+import sqlite, { SQLInputValue } from "node:sqlite";
 import { StatementResultingChanges } from "node:sqlite";
 
 export interface StateData {
@@ -30,7 +30,6 @@ export interface EntityBase {
 
 export class DbContext  {
   
-
   private _db: sqlite.DatabaseSync | undefined = undefined;
   
   public openDb() {
@@ -41,25 +40,24 @@ export class DbContext  {
     this._db?.close();
   }
 
-  public insertNamed<T extends object>(sql: string, entity: T | Record<string, SQLInputValue>) : number {
-    const parameters = {...entity} as Record<string, SQLInputValue>;
-    const result = this.runNamed(sql, parameters);
+  public insert(sql: string, parameters: Record<string, SQLInputValue>) : number {
+    const result = this.run(sql, parameters);
     return result.lastInsertRowid as number;
   }
   
-  public get<T>(sql: string, namedParameters: Record<string, SQLInputValue> | undefined = undefined, ...anonymousParameters: SQLInputValue[]): T | undefined
+  public get<T>(sql: string, namedParameters: Record<string, SQLInputValue>): T | undefined
   {
     const query = this._db!.prepare(sql);
-    const rawData = namedParameters ? query.get(namedParameters) : query.get(...anonymousParameters);
+    const rawData = query.get(namedParameters);
     return rawData ? Object.assign({}, rawData) as T : undefined;
   }
 
-  public runNamed(sql: string, parameters: Record<string, SQLInputValue>): StatementResultingChanges {
+  public run(sql: string, parameters: Record<string, SQLInputValue>): StatementResultingChanges {
     const query = this._db!.prepare(sql);
     return query.run(parameters);
   }
 
-  public allNamed<T>(sql: string, parameters: Record<string, SQLInputValue>): T[] {
+  public all<T>(sql: string, parameters: Record<string, SQLInputValue>): T[] {
     const query = this._db!.prepare(sql);
     const rawData = query.all(parameters);
     return rawData.map(r => Object.assign({}, r) as T);
