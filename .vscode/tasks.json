@@ -1,0 +1,37 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "start deno",
+			"type": "shell",
+			"command": "deno task start",
+			"problemMatcher": [],
+			"group": "build",
+			"isBackground": true,
+			"options": {
+				"env": {
+					"DBPATH": "./app/App.db",
+					"TOKENRAWKEY": "3wK8tBxKTMQWPM0vpNpQOl2CKSRpdTIrsMb31IbBotOLrQ113rxW1UoOKIwlGXj_xhHMIywrjjajHueAA_uJrQ"
+				}
+			}
+		},
+		{
+			"label": "abrir chrome",
+			"type": "shell",
+			"command": "start chrome http://localhost:8000",
+			"problemMatcher": []
+		},
+		{
+			"label": "start + chrome",
+			"dependsOn": [
+				"start deno",
+				"abrir chrome"
+			],
+			"dependsOrder": "parallel",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	]
+}

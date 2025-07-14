@@ -1,5 +1,6 @@
-@import "./fonts.css";
-@import "./form.css";
+@import "./css/fonts.css";
+@import "./css/form.css";
+@import "./css/msg.css";
 
 *,
 *::before,
@@ -24,6 +25,9 @@
   --color-warn: rgb(90, 40, 10);
 }
 
+.oculto {
+  display: none;
+}
 
 body {
   display: grid;

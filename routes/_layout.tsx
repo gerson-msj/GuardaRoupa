@@ -1,5 +1,5 @@
 import { PageProps } from "$fresh/server.ts";
-import { StateData } from "../app/App.ts";
+import { StateData } from "../app/Pages/StateData.ts";
 import MenuComponent from "../components/MenuComponent.tsx";
 
 export default function Layout({ Component, state }: PageProps<unknown, StateData>) {

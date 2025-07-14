@@ -1,18 +1,27 @@
-import { PageProps } from "$fresh/server.ts";
-import { StateData } from "../../app/App.ts";
-import CadastroData from "../../app/Pages/Login/Cadastro/CadastroData.ts";
-import { CadastroHandler } from "../../app/Pages/Login/Cadastro/CadastroHandler.ts";
-import AlertaComponent from "../../islands/AlertaComponent.tsx";
-import CadastroComponent from "../../islands/login/cadastro/CadastroComponent.tsx";
 
-export { CadastroHandler as handler }
+import { Handlers, PageProps } from "$fresh/server.ts";
+import CadastroController from "../../app/Pages/Login/CadastroController.ts";
+import CadastroData from "../../app/Pages/Login/CadastroData.ts";
+import { StateData } from "../../app/Pages/StateData.ts";
+import LoginIsland from "../../islands/login/LoginIslan.tsx";
 
 export default function Page(props: PageProps<CadastroData, StateData>) {
-
   return (
-    <>
-      <CadastroComponent data={props.data} />
-      <AlertaComponent error={props.data.Error} />
-    </>
+    <LoginIsland data={props.data} />
   );
 }
+
+export const handler: Handlers<CadastroData, StateData> = {
+
+  GET(req, ctx) {
+    const service = new CadastroController(req, ctx);
+    return service.NovoCadastro();
+  },
+
+  POST(req, ctx) {
+    const service = new CadastroController(req, ctx);
+    return service.NovoUsuario();
+  }
+
+};
+

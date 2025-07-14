@@ -1,31 +1,35 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Launch Chrome",
-            "request": "launch",
-            "type": "chrome",
-            "url": "http://localhost:8000",
-            "webRoot": "${workspaceFolder}"
-        },
-        {
-            "request": "launch",
-            "name": "Launch Program",
-            "type": "node",
-            "program": "${workspaceFolder}/main.ts",
-            "cwd": "${workspaceFolder}",
-            "env": {},
-            "runtimeExecutable": "C:\\Users\\gerson.msj\\AppData\\Local\\Microsoft\\WinGet\\Links\\deno.EXE",
-            "runtimeArgs": [
-                "run",
-                "--inspect-wait",
-                "--allow-all",
-                "--env-file"
-            ],
-            "attachSimplePort": 9229
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Chrome",
+      "request": "launch",
+      "type": "chrome",
+      "url": "http://localhost:8000",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "name": "Launch Program",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "C:\\Users\\gerson.msj\\AppData\\Local\\Microsoft\\WinGet\\Links\\deno.EXE",
+      "runtimeArgs": [
+        "task",
+        "debug"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "env": {
+        "DBPATH": "./app/App.db",
+        "TOKENRAWKEY": "3wK8tBxKTMQWPM0vpNpQOl2CKSRpdTIrsMb31IbBotOLrQ113rxW1UoOKIwlGXj_xhHMIywrjjajHueAA_uJrQ"
+      },
+      "attachSimplePort": 9229
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Debug Deno Fresh + Chrome",
+      "configurations": ["Launch Program", "Launch Chrome"]
+    }
+  ]
 }

@@ -1,4 +1,4 @@
-import { BaseData } from "../../../App.ts";
+import { BaseData } from "../base/BaseData.ts";
 
 export default interface CadastroData extends BaseData {
     Nome: string;

@@ -1,18 +1,17 @@
-
 form {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-form div {
+form div.form {
     display: flex;
     justify-content: center;
     width: 75%;
     padding: 10px 20px;
 }
 
-form div:has(label):not(:has(input[type="checkbox"])) {
+form div.form:has(label):not(:has(input[type="checkbox"])) {
     flex-direction: column;
 
     label {
@@ -26,18 +25,21 @@ form div:has(label):not(:has(input[type="checkbox"])) {
     }
 }
 
-form div:has(input[type="checkbox"]) {
+form div.form:has(input[type="checkbox"]) {
     flex-direction: row-reverse;
     padding: 0;
     gap: 10px;
 }
 
-form div:has(button) {
+form div.form:has(button) {
     flex-direction: row;
-    gap: 10px;
+    gap: 10px;    
+}
 
+form div.form:has(button),
+.message-buttons {
     button {
-        width: 80px;
+        width: 100px;
         height: var(--control-height);
         border: 1px solid var(--border-color);
         border-radius: 5px;

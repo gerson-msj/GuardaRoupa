@@ -1,7 +1,7 @@
 import { Handlers } from "$fresh/server.ts";
-import { StateData } from "../app/App.ts";
-
+import { StateData } from "../app/Pages/StateData.ts";
 export default function Home() {
+
   return (
     <>
       <div class="texto-destaque">

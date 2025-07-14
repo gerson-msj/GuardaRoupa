@@ -19,11 +19,6 @@ export default function MenuComponent(args: { titulo: string, menu: Record<strin
   );
 }
 
-export interface IMenuLink {
-  href: string;
-  text: string;
-}
-
 export const MENU_COMPLETO = {
   "/cadastro": "Cadastrar",
   "/consulta": "Consultar",

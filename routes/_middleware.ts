@@ -1,5 +1,5 @@
 import { FreshContext } from "$fresh/server.ts";
-import { StateData } from "../app/App.ts";
+import { StateData } from "../app/Pages/StateData.ts";
 
 export const handler = [
     function defineStateMiddleware(_req: Request, ctx: FreshContext<StateData>) {
