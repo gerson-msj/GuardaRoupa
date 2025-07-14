@@ -1,6 +1,6 @@
-import DbContext from "../../DataContext/DbContext.ts";
+import DbContext from "../../data-context/db.context.ts";
 
-export default abstract class BaseService {
+export default abstract class ServiceBase {
     protected dbContext: DbContext;
 
     constructor(dbContext: DbContext) {

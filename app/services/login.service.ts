@@ -1,6 +1,6 @@
 export default class LoginService {
 
-    static obterLoginCadastroData(formData: FormData): { nome: string, senha: string, errMsgs: string[] } {
+    static obterLoginCadastroBaseData(formData: FormData): { nome: string, senha: string, errMsgs: string[] } {
         let nome = formData.get("nome") as string;
         let senha = formData.get("senha") as string;
         const errMsgs: string[] = [];

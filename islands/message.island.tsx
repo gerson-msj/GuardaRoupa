@@ -1,6 +1,6 @@
 import { Signal } from "@preact/signals";
 import { useEffect } from "preact/hooks";
-import { getElement } from "../app/App.ts";
+import { getElement } from "../app/app.ts";
 
 type MessageIcon = "info" | "warning";
 type MessageEvents = "message-component-open" | "asd";

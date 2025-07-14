@@ -1,13 +1,12 @@
-
-import { Handlers, PageProps } from "$fresh/server.ts";
-import CadastroController from "../../app/Pages/Login/CadastroController.ts";
-import CadastroData from "../../app/Pages/Login/CadastroData.ts";
-import { StateData } from "../../app/Pages/StateData.ts";
-import LoginIsland from "../../islands/login/LoginIslan.tsx";
+import { PageProps, Handlers } from "$fresh/server.ts";
+import CadastroController from "../../app/controllers/login/cadastro.controller.ts";
+import CadastroData from "../../app/controllers/login/cadastro.data.ts";
+import { StateData } from "../../app/controllers/state.data.ts";
+import CadastroIsland from "../../islands/login/cadastro.island.tsx";
 
 export default function Page(props: PageProps<CadastroData, StateData>) {
   return (
-    <LoginIsland data={props.data} />
+    <CadastroIsland data={props.data} />
   );
 }
 

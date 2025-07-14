@@ -1,7 +1,7 @@
-import { useEffect, useRef } from "preact/hooks";
-import MessageComponent, { MessageData } from "../MessageComponent.tsx";
 import { useSignal } from "@preact/signals";
-import CadastroData from "../../app/Pages/Login/CadastroData.ts";
+import { useRef, useEffect } from "preact/hooks/src/index.d.ts";
+import CadastroData from "../../app/controllers/login/cadastro.data.ts";
+import MessageComponent, { MessageData } from "../message.island.tsx";
 
 export default function CadastroIsland(args: { data: CadastroData }) {
 

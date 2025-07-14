@@ -1,9 +1,9 @@
 import { FreshContext } from "$fresh/server.ts";
-import DbContext from "../../DataContext/DbContext.ts";
-import { BaseData } from "./BaseData.ts";
-import { StateData } from "../StateData.ts";
+import DbContext from "../../data-context/db.context.ts";
+import { StateData } from "../state.data.ts";
+import { IDataBase } from "./data.base.ts";
 
-export default abstract class BaseController<TData extends BaseData> {
+export default abstract class ControllerBase<TData extends IDataBase> {
     
     protected req: Request;
     protected ctx: FreshContext<StateData, TData>;
@@ -22,5 +22,9 @@ export default abstract class BaseController<TData extends BaseData> {
         this.state = this.ctx.state;
         this.dbContext = new DbContext();
         this.configState();
+    }
+
+    protected redirect(headers: Headers): Response {
+        return new Response(null, { status: this.httpStatusSeeOther, headers: headers });
     }
 }

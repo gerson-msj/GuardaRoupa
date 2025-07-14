@@ -1,6 +1,6 @@
-import DbContext from "../DbContext.ts";
+import DbContext from "../db.context.ts";
 
-export default abstract class BaseRepository {
+export default abstract class RepositoryBase {
     protected dbContext: DbContext;
 
     constructor(dbContext: DbContext) {

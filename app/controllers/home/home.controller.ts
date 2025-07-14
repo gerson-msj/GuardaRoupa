@@ -1,7 +1,7 @@
-import BaseController from "../base/BaseController.ts";
+import ControllerBase from "../../controllers/base/controller.base.ts";
 import HomeData from "./home.data.ts";
 
-export default class HomeController extends BaseController<HomeData> {
+export default class HomeController extends ControllerBase<HomeData> {
 
     protected override configState(): void {
         this.state.menu = {

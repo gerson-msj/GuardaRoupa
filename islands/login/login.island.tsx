@@ -1,7 +1,7 @@
 import { useRef } from "preact/hooks";
-import LoginData from "../../app/Pages/Login/LoginData.ts";
-import MessageComponent, { MessageData } from "../MessageComponent.tsx";
 import { useSignal } from "@preact/signals";
+import LoginData from "../../app/controllers/login/login.data.ts";
+import MessageComponent, { MessageData } from "../message.island.tsx";
 
 export default function LoginIsland(args: { data: LoginData }) {
 

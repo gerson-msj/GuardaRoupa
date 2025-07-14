@@ -1,8 +1,6 @@
-import CryptService from "./CryptService.ts";
+import CryptService from "./crypt.service.ts";
 
 export default class AuthService {
-
-    cryptService: CryptService = new CryptService();
 
     static obterLoginCadastroData(formData: FormData): { nome: string, senha: string, errMsgs: string[] } {
         let nome = formData.get("nome") as string;
@@ -20,16 +18,17 @@ export default class AuthService {
         return { nome, senha, errMsgs };
     }
 
-    static async redirecionarToken(id: number, location: string = "/home"): Promise<Response> {
+    static async obterHeaders(idUsuario: number): Promise<Headers>;
+    static async obterHeaders(idUsuario: number, location: string): Promise<Headers>;
+    static async obterHeaders(idUsuario: number, location: string = "/home"): Promise<Headers> {       
+        
         const cryptService = new CryptService();
-        const token = await cryptService.criarToken(id);
+        const token = await cryptService.criarToken(idUsuario);
         const headers = new Headers();
         headers.set("Set-Cookie", `token=$${token}; Path=/; HttpOnly; Max-Age=604800`); // Cookie de uma semana.
-        headers.set("Location", location);
-        const httpStatusSeeOther = 303;
-        return new Response(null, { status: httpStatusSeeOther, headers: headers });
+        if(location)
+            headers.set("Location", location);
+        
+        return headers;
     }
-
-
-
 }

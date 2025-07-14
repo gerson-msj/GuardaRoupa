@@ -1,10 +1,11 @@
-import CadastroData from "../../Pages/Login/CadastroData.ts";
-import CryptService from "../../Services/CryptService.ts";
-import DbContext, { DbIdx, DbPrefix } from "../DbContext.ts";
-import { UsuarioEntity } from "../Entities/UsuarioEntity.ts";
-import BaseRepository from "./BaseRepository.ts";
 
-export default class UsuarioRepository extends BaseRepository {
+import CadastroData from "../../controllers/login/cadastro.data.ts";
+import CryptService from "../../services/crypt.service.ts";
+import DbContext, { DbPrefix, DbIdx } from "../db.context.ts";
+import { UsuarioEntity } from "../entities/usuario.entity.ts";
+import RepositoryBase from "./repository.base.ts";
+
+export default class UsuarioRepository extends RepositoryBase {
 
     private usuarioPrefix: DbPrefix = "usuarios";
     private usuarioIdx: DbIdx = "usuarios:idx";

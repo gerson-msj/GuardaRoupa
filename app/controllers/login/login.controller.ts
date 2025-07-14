@@ -1,11 +1,11 @@
-import UsuarioRepository from "../../DataContext/Repositories/UsuarioRepository.ts";
-import AuthService from "../../Services/AuthService.ts";
-import CryptService from "../../Services/CryptService.ts";
-import LoginService from "../../Services/LoginService.ts";
-import BaseController from "../base/BaseController.ts";
-import LoginData from "./LoginData.ts";
+import ControllerBase from "../../controllers/base/controller.base.ts";
+import UsuarioRepository from "../../data-context/repositories/usuario.repository.ts";
+import AuthService from "../../services/auth.service.ts";
+import CryptService from "../../services/crypt.service.ts";
+import LoginService from "../../services/login.service.ts";
+import LoginData from "./login.data.ts";
 
-export default class LoginController extends BaseController<LoginData> {
+export default class LoginController extends ControllerBase<LoginData> {
 
     usuarioRepository = new UsuarioRepository(this.dbContext);
     cryptService = new CryptService();
@@ -16,12 +16,7 @@ export default class LoginController extends BaseController<LoginData> {
     }
 
     public NovoLogin(): Response | Promise<Response> {
-        const data: LoginData = {
-            IdUsuario: 0,
-            Nome: "",
-            Senha: "",
-            ErrMsgs: []
-        };
+        const data = new LoginData();
         return this.ctx.render(data);
     }
 
@@ -47,7 +42,8 @@ export default class LoginController extends BaseController<LoginData> {
                 return this.ctx.render(data);
             }
             
-            return await AuthService.redirecionarToken(usuarioEntity.Id);
+            const headers = await AuthService.obterHeaders(usuarioEntity.Id);
+            return this.redirect(headers);
 
         } catch (error) {
             if (error instanceof Error)
@@ -62,17 +58,8 @@ export default class LoginController extends BaseController<LoginData> {
     }
 
     async getData(): Promise<LoginData> {
-
         const formData = await this.req.formData();
-        const commonData = LoginService.obterLoginCadastroData(formData);
-
-        const data: LoginData = {
-            IdUsuario: 0,
-            Nome: commonData.nome,
-            Senha: commonData.senha,
-            ErrMsgs: commonData.errMsgs
-        };
-
-        return data;
+        const baseData = LoginService.obterLoginCadastroBaseData(formData);
+        return new LoginData(baseData.nome, baseData.senha, baseData.errMsgs);
     }
 }
