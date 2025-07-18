@@ -12,11 +12,11 @@ import * as $home from "./routes/home.tsx";
 import * as $index from "./routes/index.tsx";
 import * as $login_cadastro from "./routes/login/cadastro.tsx";
 import * as $login_index from "./routes/login/index.tsx";
-import * as $AlertaComponent from "./islands/AlertaComponent.tsx";
 import * as $Counter from "./islands/Counter.tsx";
-import * as $MessageComponent from "./islands/MessageComponent.tsx";
-import * as $login_CadastroIsland from "./islands/login/CadastroIsland.tsx";
-import * as $login_LoginIslan from "./islands/login/LoginIslan.tsx";
+import * as $alerta_island from "./islands/alerta.island.tsx";
+import * as $login_cadastro_island from "./islands/login/cadastro.island.tsx";
+import * as $login_login_island from "./islands/login/login.island.tsx";
+import * as $message_island from "./islands/message.island.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -33,11 +33,11 @@ const manifest = {
     "./routes/login/index.tsx": $login_index,
   },
   islands: {
-    "./islands/AlertaComponent.tsx": $AlertaComponent,
     "./islands/Counter.tsx": $Counter,
-    "./islands/MessageComponent.tsx": $MessageComponent,
-    "./islands/login/CadastroIsland.tsx": $login_CadastroIsland,
-    "./islands/login/LoginIslan.tsx": $login_LoginIslan,
+    "./islands/alerta.island.tsx": $alerta_island,
+    "./islands/login/cadastro.island.tsx": $login_cadastro_island,
+    "./islands/login/login.island.tsx": $login_login_island,
+    "./islands/message.island.tsx": $message_island,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

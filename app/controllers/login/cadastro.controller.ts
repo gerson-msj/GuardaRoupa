@@ -36,8 +36,8 @@ export default class CadastroController extends ControllerBase<CadastroData> {
 
             await this.dbContext.openDb();
             const idUsuario = await this.usuarioRepository.novo(data);
-            const headers = await AuthService.obterHeaders(idUsuario);
-            return this.redirect(headers);
+            const headers = await AuthService.comporHeaders(idUsuario);
+            return this.redirect("/home", headers);
 
         } catch (error) {
             if (error instanceof Error)

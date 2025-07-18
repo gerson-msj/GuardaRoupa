@@ -1,5 +1,5 @@
 import { useSignal } from "@preact/signals";
-import { useRef, useEffect } from "preact/hooks/src/index.d.ts";
+import { useRef, useEffect } from "preact/hooks";
 import CadastroData from "../../app/controllers/login/cadastro.data.ts";
 import MessageComponent, { MessageData } from "../message.island.tsx";
 

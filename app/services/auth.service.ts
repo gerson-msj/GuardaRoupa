@@ -18,17 +18,29 @@ export default class AuthService {
         return { nome, senha, errMsgs };
     }
 
-    static async obterHeaders(idUsuario: number): Promise<Headers>;
-    static async obterHeaders(idUsuario: number, location: string): Promise<Headers>;
-    static async obterHeaders(idUsuario: number, location: string = "/home"): Promise<Headers> {       
-        
-        const cryptService = new CryptService();
-        const token = await cryptService.criarToken(idUsuario);
-        const headers = new Headers();
-        headers.set("Set-Cookie", `token=$${token}; Path=/; HttpOnly; Max-Age=604800`); // Cookie de uma semana.
-        if(location)
-            headers.set("Location", location);
-        
+    /**
+     * Cria ou adiciona a um header um cookie contendo um JWT.
+     * @param idUsuario Identificação do usuário, para compor o sub do JWT.
+     * @param expDias Dias até a expiração do JWT e do Cookie, valor padrão de 7 dias.
+     * @param headers Headers existente, se não for informado um novo será criado.
+     * @returns Headers.
+     */
+    static async comporHeaders(idUsuario: number, expDias: number = 7, headers?: Headers): Promise<Headers> {
+        headers ??= new Headers();
+        const token = await CryptService.criarToken(idUsuario, expDias);
+        const maxAge = expDias * 24 * 60 * 60; // dias em segundos.
+        headers.set("Set-Cookie", `token=$${token}; Path=/; HttpOnly; Max-Age=${maxAge}`);
         return headers;
+    }
+
+    /**
+     * Obtém o JWT a partir dos cookies de uma Request.
+     * @param req Request
+     * @returns JWT, se existir.
+     */
+    static obterToken(req: Request): string | undefined {
+        const cookies = req.headers.get("cookie");
+        const cookieToken = cookies?.split(";").find(c => c.trim().startsWith("token="));
+        return cookieToken?.split("=").slice(1).join("=");
     }
 }

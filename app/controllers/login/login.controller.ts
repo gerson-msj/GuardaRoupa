@@ -8,7 +8,6 @@ import LoginData from "./login.data.ts";
 export default class LoginController extends ControllerBase<LoginData> {
 
     usuarioRepository = new UsuarioRepository(this.dbContext);
-    cryptService = new CryptService();
 
     protected override configState(): void {
         this.state.titulo = "Login";
@@ -36,14 +35,14 @@ export default class LoginController extends ControllerBase<LoginData> {
                 return this.ctx.render(data);
             }
 
-            const senhaValida = await this.cryptService.validarSenha(data.Senha, usuarioEntity.Senha);
+            const senhaValida = await CryptService.validarSenha(data.Senha, usuarioEntity.Senha);
             if(!senhaValida){
                 data.ErrMsgs.push("Senha inválida.");
                 return this.ctx.render(data);
             }
             
-            const headers = await AuthService.obterHeaders(usuarioEntity.Id);
-            return this.redirect(headers);
+            const headers = await AuthService.comporHeaders(usuarioEntity.Id);
+            return this.redirect("/home", headers);
 
         } catch (error) {
             if (error instanceof Error)

@@ -1,6 +1,7 @@
 import { Handlers } from "$fresh/server.ts";
-import { StateData } from "../app/Pages/StateData.ts";
-export default function Home() {
+import { StateData } from "../app/controllers/state.data.ts";
+
+export default function Index() {
 
   return (
     <>
@@ -14,11 +15,12 @@ export default function Home() {
 }
 
 export const handler: Handlers<unknown, StateData> = {
-  GET(_, ctx) {
+  GET(_req, ctx) {
     ctx.state.menu = {
       "/login": "Entre",
       "/login/cadastro": "Cadastre-se"
     };
+    
     return ctx.render();
   }
 }

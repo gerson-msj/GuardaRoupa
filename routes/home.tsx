@@ -1,7 +1,7 @@
 import { Handlers } from "$fresh/server.ts";
-import HomeController from "../app/Pages/home/home.controller.ts";
-import HomeData from "../app/Pages/home/home.data.ts";
-import { StateData } from "../app/Pages/StateData.ts";
+import HomeController from "../app/controllers/home/home.controller.ts";
+import HomeData from "../app/controllers/home/home.data.ts";
+import { StateData } from "../app/controllers/state.data.ts";
 
 export default function Home() {
     return (

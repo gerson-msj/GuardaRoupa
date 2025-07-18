@@ -24,7 +24,9 @@ export default abstract class ControllerBase<TData extends IDataBase> {
         this.configState();
     }
 
-    protected redirect(headers: Headers): Response {
+    protected redirect(location: string, headers?: Headers): Response {
+        headers ??= new Headers();
+        headers.set("Location", location);
         return new Response(null, { status: this.httpStatusSeeOther, headers: headers });
     }
 }
