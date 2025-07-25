@@ -1,17 +1,19 @@
-form {
+.form-login,
+.form-foto {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-form div.form {
+.form-login div,
+.form-foto div {
     display: flex;
     justify-content: center;
-    width: 75%;
+    width: 85%;
     padding: 10px 20px;
 }
 
-form div.form:has(label):not(:has(input[type="checkbox"])) {
+.form-login div:has(label):not(:has(input[type="checkbox"])) {
     flex-direction: column;
 
     label {
@@ -25,19 +27,20 @@ form div.form:has(label):not(:has(input[type="checkbox"])) {
     }
 }
 
-form div.form:has(input[type="checkbox"]) {
+.form-login div:has(input[type="checkbox"]) {
     flex-direction: row-reverse;
     padding: 0;
     gap: 10px;
 }
 
-form div.form:has(button) {
+.form-login div:has(button) {
     flex-direction: row;
-    gap: 10px;    
+    gap: 10px;
 }
 
-form div.form:has(button),
-.message-buttons {
+.form-login div:has(button),
+.popup-button,
+.form-cadastro .fases {
     button {
         width: 100px;
         height: var(--control-height);
@@ -49,4 +52,76 @@ form div.form:has(button),
     button:hover {
         background-color: var(--bg-page-hover);
     }
+}
+
+.form-foto button.img-button {
+    width: auto;
+    height: 35px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--bg-page);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+
+    span {
+        margin-right: 5px;
+    }
+}
+
+.form-foto img {
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+}
+
+.form-foto p {
+    text-align: center;
+}
+
+.form-foto button {
+    width: auto;
+    height: var(--control-height);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--bg-page);
+}
+
+/* Form Cadastro */
+
+.form-cadastro .fases {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center;
+    width: 100%;
+    
+    button {
+        width: fit-content;
+        min-width: 70px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* Form Cadastro */
+
+
+@media screen and (max-width: 800px) {
+
+    .form-login div,
+    .form-foto div {
+        width: 100%;
+        padding: 10px 10px;
+    }
+
+    .form-foto p {
+        font-size: small;
+    }
+
+    
+
 }

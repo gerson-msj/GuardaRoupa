@@ -29,7 +29,7 @@ export default class AuthService {
         headers ??= new Headers();
         const token = await CryptService.criarToken(idUsuario, expDias);
         const maxAge = expDias * 24 * 60 * 60; // dias em segundos.
-        headers.set("Set-Cookie", `token=$${token}; Path=/; HttpOnly; Max-Age=${maxAge}`);
+        headers.set("Set-Cookie", `token=${token}; Path=/; HttpOnly; Max-Age=${maxAge}`);
         return headers;
     }
 
@@ -42,5 +42,19 @@ export default class AuthService {
         const cookies = req.headers.get("cookie");
         const cookieToken = cookies?.split(";").find(c => c.trim().startsWith("token="));
         return cookieToken?.split("=").slice(1).join("=");
+    }
+
+    static async tokenValido(token?: string) : Promise<boolean> {
+        try {
+            if(!token)
+                return false;    
+
+            const tokenValido = await CryptService.tokenValido(token);
+            const tokenExpirado = CryptService.tokenExpirado(token);
+            return tokenValido && !tokenExpirado;
+        } catch (error) {
+            console.error(`Falha em AuthService.tokenValido(token: ${token})`, error);
+            return false;
+        }
     }
 }

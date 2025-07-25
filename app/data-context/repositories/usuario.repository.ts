@@ -9,14 +9,9 @@ export default class UsuarioRepository extends RepositoryBase {
 
     private usuarioPrefix: DbPrefix = "usuarios";
     private usuarioIdx: DbIdx = "usuarios:idx";
-    private cryptService: CryptService;
 
-    /**
-     *
-     */
     constructor(dbContext: DbContext) {
         super(dbContext);
-        this.cryptService = new CryptService();
     }
 
     public async obterPorNome(nomeUsuario: string): Promise<UsuarioEntity | null> {
@@ -32,9 +27,9 @@ export default class UsuarioRepository extends RepositoryBase {
     public async novo(data: CadastroData): Promise<number> {
 
         const usuario: UsuarioEntity = {
-            Id: await this.dbContext.nextSeq("usuarios:seq"),
+            Id: await this.dbContext.nextSeq(this.dbContext.key_Usuarios_Seq()),
             NomeUsuario: data.Nome,
-            Senha: await this.cryptService.criptografarSenha(data.Senha)
+            Senha: await CryptService.criptografarSenha(data.Senha)
         };
 
         const keyIdx = [this.usuarioIdx, usuario.NomeUsuario];

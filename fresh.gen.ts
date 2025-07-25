@@ -3,10 +3,14 @@
 // This file is automatically updated during development when running `dev.ts`.
 
 import * as $_404 from "./routes/_404.tsx";
+import * as $_500 from "./routes/_500.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $_layout from "./routes/_layout.tsx";
 import * as $_middleware from "./routes/_middleware.ts";
 import * as $api_joke from "./routes/api/joke.ts";
+import * as $cadastro from "./routes/cadastro.tsx";
+import * as $cadastro_detalhes from "./routes/cadastro/detalhes.tsx";
+import * as $cadastro_foto from "./routes/cadastro/foto.tsx";
 import * as $greet_name_ from "./routes/greet/[name].tsx";
 import * as $home from "./routes/home.tsx";
 import * as $index from "./routes/index.tsx";
@@ -14,18 +18,29 @@ import * as $login_cadastro from "./routes/login/cadastro.tsx";
 import * as $login_index from "./routes/login/index.tsx";
 import * as $Counter from "./islands/Counter.tsx";
 import * as $alerta_island from "./islands/alerta.island.tsx";
+import * as $cadastro_cadastro_btn_island from "./islands/cadastro/cadastro-btn.island.tsx";
+import * as $cadastro_cadastro_island from "./islands/cadastro/cadastro.island.tsx";
+import * as $cadastro_detalhes_island from "./islands/cadastro/detalhes.island.tsx";
+import * as $cadastro_foto_island from "./islands/cadastro/foto.island.tsx";
+import * as $home_island from "./islands/home.island.tsx";
 import * as $login_cadastro_island from "./islands/login/cadastro.island.tsx";
 import * as $login_login_island from "./islands/login/login.island.tsx";
-import * as $message_island from "./islands/message.island.tsx";
+import * as $msg_msg_err_island from "./islands/msg/msg-err.island.tsx";
+import * as $msg_msg_island from "./islands/msg/msg.island.tsx";
+import * as $popup_popup_island from "./islands/popup/popup.island.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
   routes: {
     "./routes/_404.tsx": $_404,
+    "./routes/_500.tsx": $_500,
     "./routes/_app.tsx": $_app,
     "./routes/_layout.tsx": $_layout,
     "./routes/_middleware.ts": $_middleware,
     "./routes/api/joke.ts": $api_joke,
+    "./routes/cadastro.tsx": $cadastro,
+    "./routes/cadastro/detalhes.tsx": $cadastro_detalhes,
+    "./routes/cadastro/foto.tsx": $cadastro_foto,
     "./routes/greet/[name].tsx": $greet_name_,
     "./routes/home.tsx": $home,
     "./routes/index.tsx": $index,
@@ -35,9 +50,16 @@ const manifest = {
   islands: {
     "./islands/Counter.tsx": $Counter,
     "./islands/alerta.island.tsx": $alerta_island,
+    "./islands/cadastro/cadastro-btn.island.tsx": $cadastro_cadastro_btn_island,
+    "./islands/cadastro/cadastro.island.tsx": $cadastro_cadastro_island,
+    "./islands/cadastro/detalhes.island.tsx": $cadastro_detalhes_island,
+    "./islands/cadastro/foto.island.tsx": $cadastro_foto_island,
+    "./islands/home.island.tsx": $home_island,
     "./islands/login/cadastro.island.tsx": $login_cadastro_island,
     "./islands/login/login.island.tsx": $login_login_island,
-    "./islands/message.island.tsx": $message_island,
+    "./islands/msg/msg-err.island.tsx": $msg_msg_err_island,
+    "./islands/msg/msg.island.tsx": $msg_msg_island,
+    "./islands/popup/popup.island.tsx": $popup_popup_island,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

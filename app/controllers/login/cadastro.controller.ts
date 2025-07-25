@@ -1,35 +1,28 @@
-import { FreshContext } from "$fresh/server.ts";
 import UsuarioRepository from "../../data-context/repositories/usuario.repository.ts";
 import AuthService from "../../services/auth.service.ts";
 import LoginService from "../../services/login.service.ts";
-import ControllerBase from "../base/controller.base.ts";
-import { StateData } from "../state.data.ts";
+import ControllerBase from "../controller.base.ts";
 import CadastroData from "./cadastro.data.ts";
 
 export default class CadastroController extends ControllerBase<CadastroData> {
 
-    private usuarioRepository: UsuarioRepository;
-
-    constructor(req: Request, ctx: FreshContext<StateData, CadastroData>) {
-        super(req, ctx);
-        this.usuarioRepository = new UsuarioRepository(this.dbContext);
-    }
+    private usuarioRepository = new UsuarioRepository(this.dbContext);
 
     protected override configState(): void {
         this.state.titulo = "Cadastro";
         this.state.menu = { "/": "Voltar" };
     }
 
-    public NovoCadastro(): Response | Promise<Response> {
+    public get(): Response | Promise<Response> {
         const data = new CadastroData();
         return this.ctx.render(data);
     }
 
-    public async NovoUsuario(): Promise<Response> {
+    public async post(): Promise<Response> {
                 
         const data = await this.getData();
 
-        if (data.ErrMsgs.length > 0) 
+        if (this.hasError) 
             return this.ctx.render(data);
         
         try {
@@ -40,10 +33,7 @@ export default class CadastroController extends ControllerBase<CadastroData> {
             return this.redirect("/home", headers);
 
         } catch (error) {
-            if (error instanceof Error)
-                data.ErrMsgs.push(error.message);
-            else
-                data.ErrMsgs.push("Houve uma falha no servidor.");
+            this.addError(error);
 
             return this.ctx.render(data);
         } finally {
@@ -57,6 +47,9 @@ export default class CadastroController extends ControllerBase<CadastroData> {
         const baseData = LoginService.obterLoginCadastroBaseData(formData);
         const exibirSenha = formData.has("exibirSenha");
 
-        return new CadastroData(baseData.nome, baseData.senha, exibirSenha, baseData.errMsgs);
+        if(baseData.errMsgs.length > 0)
+            this.addError(baseData.errMsgs);
+
+        return new CadastroData(baseData.nome, baseData.senha, exibirSenha);
     }
 }

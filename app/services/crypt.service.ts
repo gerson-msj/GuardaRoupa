@@ -52,11 +52,23 @@ export default class CryptService {
         return valido;
     }
 
-    public static tokenExpirado(token: string): boolean {
+    /**
+     * Verifica se o token está expirado ou se ainda pode ser renovado.
+     * @param token Token para validação da expiração.
+     * @param renovacaoimInenteDias Se informado, indica se o token ainda pode ser renovado, quando nulo, apenas verifica se o token está expirado.
+     * @returns Indicador de expiração ou indicador de possibilidade de renovação.
+     */
+    public static tokenExpirado(token: string, renovacaoimInenteDias?: number): boolean {
         const payload: { sub: object, exp: number } = JSON.parse(atob(token.split(".")[1]));
         const currTime = Math.floor((new Date()).getTime() / 1000);
-        const expirado = currTime > payload.exp;
-        return expirado;
+        let resultado = currTime > payload.exp;
+        if(renovacaoimInenteDias && !resultado) {
+            const fatorDia = 24 * 60 * 60 * 1000;
+            payload.exp -= renovacaoimInenteDias * Math.floor(fatorDia / 1000)
+            resultado = currTime > payload.exp;
+        }
+
+        return resultado;
     }
 
     public static tokenSub<T>(token: string): T {

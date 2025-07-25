@@ -1,19 +1,23 @@
-.message-backdrop {
+/* .message-backdrop {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vw;
+    height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1;
     cursor: pointer;
     display: flex; 
     justify-content: center;
     padding-top: 55px;
-}
+} */
 
-
-.message-body {
+/* .message-body {
+    position: fixed;
+    top: 55px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
     background-color: #fff;
     width: fit-content;
     height: fit-content;
@@ -26,7 +30,6 @@
     align-items: center;
     padding: 0 10px;
 
-
     div {
         padding: 10px;
         display: flex;
@@ -36,9 +39,9 @@
         gap: 10px;
         width: 100%;
     }
-}
+} */
 
-.message-head {
+/* .message-head {
     border-bottom: 1px solid var(--border-color);
     
     .message-head-title {
@@ -52,5 +55,5 @@
         width: 75px;
         height: 25px;
     }
-}
+} */
 

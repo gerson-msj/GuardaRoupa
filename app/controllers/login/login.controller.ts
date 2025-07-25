@@ -1,4 +1,4 @@
-import ControllerBase from "../../controllers/base/controller.base.ts";
+import ControllerBase from "../controller.base.ts";
 import UsuarioRepository from "../../data-context/repositories/usuario.repository.ts";
 import AuthService from "../../services/auth.service.ts";
 import CryptService from "../../services/crypt.service.ts";
@@ -20,9 +20,10 @@ export default class LoginController extends ControllerBase<LoginData> {
     }
 
     public async Entrar(): Promise<Response> {
+        
         const data = await this.getData();
         
-        if (data.ErrMsgs.length > 0) 
+        if (this.hasError) 
             return this.ctx.render(data);
 
         try {
@@ -31,13 +32,13 @@ export default class LoginController extends ControllerBase<LoginData> {
             const usuarioEntity = await this.usuarioRepository.obterPorNome(data.Nome);
             
             if(usuarioEntity === null){
-                data.ErrMsgs.push("Usuário inexistente.");
+                this.addError("Usuário inexistente.");
                 return this.ctx.render(data);
             }
 
             const senhaValida = await CryptService.validarSenha(data.Senha, usuarioEntity.Senha);
             if(!senhaValida){
-                data.ErrMsgs.push("Senha inválida.");
+                this.addError("Senha inválida.");
                 return this.ctx.render(data);
             }
             
@@ -45,11 +46,7 @@ export default class LoginController extends ControllerBase<LoginData> {
             return this.redirect("/home", headers);
 
         } catch (error) {
-            if (error instanceof Error)
-                data.ErrMsgs.push(error.message);
-            else
-                data.ErrMsgs.push("Houve uma falha no servidor.");
-
+            this.addError(error);
             return this.ctx.render(data);
         } finally {
             this.dbContext.closeDb();
@@ -59,6 +56,10 @@ export default class LoginController extends ControllerBase<LoginData> {
     async getData(): Promise<LoginData> {
         const formData = await this.req.formData();
         const baseData = LoginService.obterLoginCadastroBaseData(formData);
-        return new LoginData(baseData.nome, baseData.senha, baseData.errMsgs);
+
+        if(baseData.errMsgs.length > 0)
+            this.addError(baseData.errMsgs);
+
+        return new LoginData(baseData.nome, baseData.senha);
     }
 }

@@ -4,22 +4,20 @@ import CadastroData from "../../app/controllers/login/cadastro.data.ts";
 import { StateData } from "../../app/controllers/state.data.ts";
 import CadastroIsland from "../../islands/login/cadastro.island.tsx";
 
-export default function Page(props: PageProps<CadastroData, StateData>) {
-  return (
-    <CadastroIsland data={props.data} />
-  );
+export default function Novo(props: PageProps<CadastroData, StateData>) {
+  return <CadastroIsland data={props.data} />;
 }
 
 export const handler: Handlers<CadastroData, StateData> = {
 
   GET(req, ctx) {
     const service = new CadastroController(req, ctx);
-    return service.NovoCadastro();
+    return service.get();
   },
 
   POST(req, ctx) {
     const service = new CadastroController(req, ctx);
-    return service.NovoUsuario();
+    return service.post();
   }
 
 };
